@@ -17,17 +17,8 @@ build:
   skip:
     - win
     # https://github.com/conda-forge/root-feedstock/issues/327
-    - if: osx and (root_base is startingwith('6.32')) and (c_compiler_version != "16")
-      then: true
-    - if: osx and (root_base is not startingwith('6.32')) and (c_compiler_version == "16")
-      then: true
-    # https://github.com/conda-forge/root-feedstock/issues/328
-    - if: osx and (match(python, '==3.11') or match(python, '==3.13'))
-      then: true
     - if: linux and (root_base is startingwith('6.32') or root_base is startingwith('6.34')) and (c_compiler_version != "13")
       then: true
-    #- if: root_base is startingwith('6.36') and (c_compiler_version != "14")
-    #  then: true
   script:
     - cmake ${CMAKE_ARGS}  -S . -B build
     - cmake --build build --clean-first --parallel="${CPU_COUNT}"
@@ -46,9 +37,9 @@ build:
 
 requirements:
   build:
-    - ${{ compiler('c') }} #c-compiler 1.11.*
-    - ${{ compiler('cxx') }} #cxx-compiler 1.11.*
-    - ${{ stdlib('c') }} #sysroot_linux-64 2.17.*
+    - ${{ compiler('c') }}
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
     - cmake
     - make
     - if: build_platform != target_platform
