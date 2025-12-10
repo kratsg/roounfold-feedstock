@@ -19,6 +19,8 @@ build:
     # https://github.com/conda-forge/root-feedstock/issues/327
     - if: osx and (root_base is startingwith('6.32')) and (c_compiler_version != "16")
       then: true
+    - if: osx and (root_base is not startingwith('6.32')) and (c_compiler_version == "16")
+      then: true
     - if: linux and (root_base is startingwith('6.32') or root_base is startingwith('6.34')) and (c_compiler_version != "13")
       then: true
     #- if: root_base is startingwith('6.36') and (c_compiler_version != "14")
